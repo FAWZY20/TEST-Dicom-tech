@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="form">
-                <form action="" method="get">
+                <form action="" method="post">
                     <div class="form-floating">
                         <textarea name="image" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
                         <label for="floatingTextarea2">Comments</label>
@@ -31,13 +31,13 @@
                     <tbody>
                         <tr>
                             <?php
-                            $urls = explode(",", $_GET['image']);
+                            $urls = explode(",", $_POST['image']);
                             for ($i = 0; $i < count($urls); $i++) {
                                 // conversion des url en base64
 
                                 $img = file_get_contents($urls[$i]);
                                 $data = base64_encode($img);
-                                
+
                                 // affichage sur le tableau
                                 echo '<td><img class="fit-picture" src="' . $urls[$i] . '" alt="image original" height="100" width ="120"></td>';
                                 echo '<td>' . $data . '</td>';
