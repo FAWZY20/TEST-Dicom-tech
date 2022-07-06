@@ -9,43 +9,51 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="form">
-                <form action="" method="post">
-                    <div class="form-floating">
-                        <textarea name="image" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                        <label for="floatingTextarea2">Comments</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            </div>
-            <div class="tab">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>image originale</th>
-                            <th>image base64</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <?php
-                            $urls = explode(",", $_POST['image']);
-                            for ($i = 0; $i < count($urls); $i++) {
-                                // conversion des url en base64
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="form">
+                    <form action="" method="post">
+                        <div class="form-floating">
+                            <textarea name="image" class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="floatingTextarea2">Comments</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="tab">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>image originale</th>
+                                <th>image base64</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <?php
+                                if (isset($_POST['image'])) {
+                                    $urls = explode(",", $_POST['image']);
+                                    for ($i = 0; $i < count($urls); $i++) {
+                                        
+                                        // conversion des url en base64
 
-                                $img = file_get_contents($urls[$i]);
-                                $data = base64_encode($img);
+                                        $img = file_get_contents($urls[$i]);
+                                        $data = base64_encode($img);
 
-                                // affichage sur le tableau
-                                echo '<td><img class="fit-picture" src="' . $urls[$i] . '" alt="image original" height="100" width ="120"></td>';
-                                echo '<td>' . $data . '</td>';
-                            }
-                            ?>
-                        </tr>
-                    </tbody>
-                </table>
+                                        // affichage sur le tableau
+                                        echo '<td><img class="fit-picture" src="' . $urls[$i] . '" alt="image original" height="100" width ="120"></td>';
+                                        echo '<td>' . $data . '</td>';
+                                    }   # code...
+                                } else {
+                                    echo '<td>aucune image</td>';
+                                    echo '<td>aucune base64</td>';
+                                }
+                                ?>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
