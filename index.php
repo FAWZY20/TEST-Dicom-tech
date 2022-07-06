@@ -21,7 +21,7 @@
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
-                <div class="tab">
+                <div class="tab col-lg-5">
                     <table class="table">
                         <thead>
                             <tr>
@@ -30,27 +30,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
                                 <?php
                                 if (isset($_POST['image'])) {
                                     $urls = explode(",", $_POST['image']);
-                                    for ($i = 0; $i < count($urls); $i++) {
-                                        
+                                    foreach ($urls as $key => $url) {
                                         // conversion des url en base64
 
-                                        $img = file_get_contents($urls[$i]);
+                                        $img = file_get_contents($url);
                                         $data = base64_encode($img);
 
                                         // affichage sur le tableau
-                                        echo '<td><img class="fit-picture" src="' . $urls[$i] . '" alt="image original" height="100" width ="120"></td>';
+                                        echo "<tr>";
+                                        echo '<td><img class="fit-picture" src="' . $url . '" alt="image original" height="100" width ="120"></td>';
                                         echo '<td>' . $data . '</td>';
-                                    }   # code...
+                                        echo "</tr>";
+                                    }
                                 } else {
                                     echo '<td>aucune image</td>';
                                     echo '<td>aucune base64</td>';
                                 }
                                 ?>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
